@@ -9,7 +9,7 @@ import request from '@/utils/request'
 // 分页获取用户列表
 export function userList(data) {
 	return request({
-		url: '/api/users/',
+		url: '/users/',
 		method: 'get',
 		data
 	})
