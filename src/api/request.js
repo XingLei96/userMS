@@ -30,7 +30,7 @@ function endLoading() {
  * 请求超时
  */
 // axios.defaults.timeout = 5000;
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 /**
  * POST请求头设置
  */
