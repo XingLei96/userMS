@@ -24,7 +24,7 @@ export function getUser(data) {
 }
 
 // 删除用户
-export function getUser(data) {
+export function deleteUser(data) {
 	return request({
 		url: 'api/users/' + data,
 		method: 'get',

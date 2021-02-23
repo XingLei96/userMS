@@ -56,16 +56,62 @@ export const constantRoutes = [
   },
 
   {
-    path: '/users',
+    path: '/user',
     component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'users',
-      name: 'users',
-      component: () => import('@/views/users/index'),
-      meta: { title: 'user', icon: 'dashboard' }
-    }]
+    redirect: '/user',
+    name: 'users',
+    meta: {
+      title: 'user',
+      icon: 'table'
+    },
+    children: [
+      {
+        path: 'users',
+        component: ()=>import('@/views/users/index'),
+        name: 'users',
+        meta: { title: 'users' }
+      },
+      {
+        path: 'usersDetails',
+        component: ()=>import('@/views/users/usersDetails/index'),
+        name: 'usersDetails',
+        meta: { title: 'usersDetails' },
+        hidden: true
+      },
+    ]
   },
+
+  // {
+  //   path: '/users',
+  //   component: Layout,
+  //   redirect: '/users',
+  //   children: [{
+  //     path: 'users',
+  //     name: 'Users',
+  //     component: () => import('@/views/users/index'),
+  //     meta: { title: 'user', icon: 'table' },
+  //     children: [{
+  //       path: 'usersDetails',
+  //       name: 'users',
+  //       component: () => import('@/views/users/usersDetails/index'),
+  //       meta: { title: 'usersDetails', icon: 'table' },
+  //   hidden: true
+  //     }],
+  //   }]
+  // },
+
+  // {
+  //   path: '/users',
+  //   component: Layout,
+  //   redirect: '/users',
+  //   children: [{
+  //     path: 'users',
+  //     name: 'users',
+  //     component: () => import('@/views/users/usersDetails/index'),
+  //     meta: { title: 'user', icon: 'table' },
+  //   }],
+  //   hidden: true
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
