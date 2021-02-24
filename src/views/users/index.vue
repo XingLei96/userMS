@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { userList, getUser } from "@/api/users";
+import { userList, getUser, deleteUser } from "@/api/users";
 import { parseTime } from "@/utils/index";
 
 export default {
@@ -81,13 +81,13 @@ export default {
   data() {
     return {
       userDatas: [],
-      tagFlag: "",
+      tagFlag: ""
     };
   },
   computed: {},
   created() {},
   filters: {
-    time: function (val) {
+    time: function(val) {
       if (val == null || val == undefined) {
         return "";
       }
@@ -108,7 +108,7 @@ export default {
       if (val == 1) {
         return "Normal";
       }
-    },
+    }
   },
   mounted() {
     this.getUsersList();
@@ -118,9 +118,9 @@ export default {
     getUsersList() {
       var data = {
         page: 1,
-        size: 10,
+        size: 10
       };
-      userList(data).then((res) => {
+      userList(data).then(res => {
         if (res.code == 1000) {
           this.userDatas = res.payload.users;
           console.log(this.userDatas);
@@ -132,23 +132,43 @@ export default {
     handleEdit(index, row) {
       console.log(index, row);
       console.log(row.id);
-      getUser(row.id).then((res) => {
+      getUser(row.id).then(res => {
         if (res.code == 1000) {
           console.log(res);
           var query = {
             datas: res.payload,
             id: row.id
-          }
-				  this.$router.push({path:'/user/usersDetails', query: {query}})
+          };
+          this.$router.push({ path: "/user/usersDetails", query: { query } });
         }
       });
     },
     // 删除
     handleDelete(index, row) {
       console.log(index, row);
-    },
-
-  },
+      this.$confirm("此操作会永久删除用户" + row.email + ", 是否继续？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          deleteUser(row.id).then(res => {
+            if (res.code == 1000) {
+              this.$message({
+                type: "success",
+                message: row.email + "已删除成功!"
+              });
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    }
+  }
 };
 </script>
 
