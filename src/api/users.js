@@ -15,11 +15,19 @@ export function userList(data) {
 	})
 }
 
-// 获取当前用户基本信息 编辑
+// 获取当前用户基本信息
 export function getUser(data) {
 	return request({
 		url: 'api/users/' + data,
 		method: 'get',
+	})
+}
+
+// 获取当前用户基本信息 更新
+export function updateUser(data) {
+	return request({
+		url: 'api/users/' + data,
+		method: 'patch',
 	})
 }
 

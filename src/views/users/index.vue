@@ -135,7 +135,11 @@ export default {
       getUser(row.id).then((res) => {
         if (res.code == 1000) {
           console.log(res);
-				  this.$router.push({path:'/user/usersDetails', query: {datas: res.payload}})
+          var query = {
+            datas: res.payload,
+            id: row.id
+          }
+				  this.$router.push({path:'/user/usersDetails', query: {query}})
         }
       });
     },
