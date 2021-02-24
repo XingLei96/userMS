@@ -50,11 +50,11 @@
           <span>{{ scope.row.status | status }}</span>
         </template>
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="avatar"
         label="avatar"
         align="center"
-      ></el-table-column>
+      ></el-table-column> -->
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"

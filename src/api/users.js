@@ -24,10 +24,11 @@ export function getUser(data) {
 }
 
 // 获取当前用户基本信息 更新
-export function updateUser(data) {
+export function updateUser(id,data) {
 	return request({
-		url: 'api/users/' + data,
+		url: 'api/users/' + id,
 		method: 'patch',
+		data
 	})
 }
 

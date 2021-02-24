@@ -14,9 +14,15 @@
         <el-form-item label="nickname" label-width="100px">
           <el-input clearable v-model="form.nickname"></el-input>
         </el-form-item>
-        <el-form-item label="avatar" label-width="100px">
-          <el-input clearable v-model="form.avatar"></el-input>
+        <el-form-item label="oldPassword" label-width="100px">
+          <el-input clearable v-model="form.old_password"></el-input>
         </el-form-item>
+        <el-form-item label="newPassword" label-width="100px">
+          <el-input clearable v-model="form.new_password"></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="avatar" label-width="100px">
+          <el-input clearable v-model="form.avatar"></el-input>
+        </el-form-item> -->
         <el-form-item label="accessRights" label-width="100px">
           <el-checkbox-group v-model="form.access_rights">
             <el-checkbox label="admin" name="type"></el-checkbox>
@@ -34,7 +40,7 @@
         </el-form-item>
 
         <el-form-item label-width="100px">
-          <el-button type="primary" @click="onSubmit">Update</el-button>
+          <el-button type="primary" @click="Update">Update</el-button>
           <el-button>cancel</el-button>
         </el-form-item>
       </el-form>
@@ -55,7 +61,9 @@ export default {
         nickname: "",
         avatar: "",
         access_rights: [],
-        status: ""
+        status: "",
+        old_password: "",
+        new_password: ""
       }
     };
   },
@@ -65,28 +73,22 @@ export default {
     this.datas = this.$route.query.query.datas;
     this.id = this.$route.query.query.id;
     this.form = this.datas;
-    this.form.id = this.id
-    console.log(this.form);
+    this.form.id = this.id;
   },
 
   methods: {
-    onSubmit() {
+    Update() {
       console.log("submit!");
-      console.log(this.form);
-      var data = {
-        params: {
-          id: this.id
-        },
-        body: {
-          email: this.datas.email,
-          nickname: this.datas.nickname,
-          email: this.datas.email,
-          email: this.datas.email,
-        }
-      }
-      updateUser(this.form).then(res => {
+      console.log(this.id)
+      console.log(this.form)
+      updateUser(this.id, this.form).then(res => {
         if (res.code == 1000) {
           console.log(res);
+                        this.$message({
+                type: "success",
+                message: this.form.email + "更新成功!"
+              });
+          this.$router.push({ path: "/user/users"} );
         }
       });
     }
@@ -102,9 +104,7 @@ export default {
   border-radius: 20px;
   padding: 40px;
   width: 600px;
-  height: 500px;
-  /* margin: 150px auto 0; */
-  margin: 0 auto 0;
+  margin: 100px auto 0;
   border-left: 1px solid rgba(204, 204, 204, 0.356);
   border-right: 1px solid rgba(204, 204, 204, 0.356);
   box-shadow: 0 15px 35px 0 rgba(60, 66, 87, 0.08),
