@@ -33,6 +33,7 @@ import Layout from '@/layout'
 export const constantRoutes = [
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/login/index'),
     hidden: true
   },
@@ -49,69 +50,38 @@ export const constantRoutes = [
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
-      name: 'Home',
+      name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Home', icon: 'dashboard' }
+      meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
 
   {
-    path: '/user',
+    path: '/Users',
     component: Layout,
-    redirect: '/user',
-    name: 'users',
-    meta: {
-      title: 'user',
-      icon: 'table'
-    },
     children: [
       {
-        path: 'users',
-        component: ()=>import('@/views/users/index'),
-        name: 'users',
-        meta: { title: 'users' }
-      },
-      {
-        path: 'usersDetails',
-        component: ()=>import('@/views/users/usersDetails/index'),
-        name: 'usersDetails',
-        meta: { title: 'usersDetails' },
-        hidden: true
-      },
+        path: '',
+        name: 'Users',
+        component: () => import('@/views/users/index'),
+        meta: { title: 'Users', icon: 'form' }
+      }
     ]
   },
 
-  // {
-  //   path: '/users',
-  //   component: Layout,
-  //   redirect: '/users',
-  //   children: [{
-  //     path: 'users',
-  //     name: 'Users',
-  //     component: () => import('@/views/users/index'),
-  //     meta: { title: 'user', icon: 'table' },
-  //     children: [{
-  //       path: 'usersDetails',
-  //       name: 'users',
-  //       component: () => import('@/views/users/usersDetails/index'),
-  //       meta: { title: 'usersDetails', icon: 'table' },
-  //   hidden: true
-  //     }],
-  //   }]
-  // },
-
-  // {
-  //   path: '/users',
-  //   component: Layout,
-  //   redirect: '/users',
-  //   children: [{
-  //     path: 'users',
-  //     name: 'users',
-  //     component: () => import('@/views/users/usersDetails/index'),
-  //     meta: { title: 'user', icon: 'table' },
-  //   }],
-  //   hidden: true
-  // },
+  {
+    path: '/UsersDetails',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'UsersDetails',
+        component: () => import('@/views/users/usersDetails/index'),
+        meta: { title: 'UsersDetails', icon: 'form' },
+        hidden: true
+      }
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

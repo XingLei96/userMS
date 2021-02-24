@@ -61,10 +61,11 @@ service.interceptors.response.use(
 					confirmButtonText: 'Re-Login',
 					cancelButtonText: 'Cancel',
 					type: 'warning'
-				}).then(() => {
-					store.dispatch('user/resetToken').then(() => {
-						location.reload()
-					})
+				}).then((res) => {
+					console.log(res)
+					// store.dispatch('user/resetToken').then(() => {
+					// 	location.reload()
+					// })
 				})
 			}
 			return Promise.reject(new Error(res.message || 'Error'))

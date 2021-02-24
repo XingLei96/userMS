@@ -63,8 +63,8 @@ export default {
         access_rights: [],
         status: "",
         old_password: "",
-        new_password: ""
-      }
+        new_password: "",
+      },
     };
   },
 
@@ -79,20 +79,20 @@ export default {
   methods: {
     Update() {
       console.log("submit!");
-      console.log(this.id)
-      console.log(this.form)
-      updateUser(this.id, this.form).then(res => {
+      console.log(this.id);
+      console.log(this.form);
+      updateUser(this.id, this.form).then((res) => {
         if (res.code == 1000) {
           console.log(res);
-                        this.$message({
-                type: "success",
-                message: this.form.email + "更新成功!"
-              });
-          this.$router.push({ path: "/user/users"} );
+          this.$message({
+            type: "success",
+            message: this.form.email + "更新成功!",
+          });
+          this.$router.push({ path: "/Users" });
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
