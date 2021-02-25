@@ -1,29 +1,29 @@
 <template>
   <div class="box">
     <div class="inbox">
-      <h3>Edit</h3>
+      <h3>{{$t('UsersDetails.title')}}</h3>
       <el-form
         ref="form"
         :model="form"
         label-width="80px"
         label-position="left"
       >
-        <el-form-item label="email" label-width="100px">
+        <el-form-item :label="$t('UsersDetails.email')" label-width="100px">
           <el-input clearable v-model="form.email"></el-input>
         </el-form-item>
-        <el-form-item label="nickname" label-width="100px">
+        <el-form-item :label="$t('UsersDetails.nickname')" label-width="100px">
           <el-input clearable v-model="form.nickname"></el-input>
         </el-form-item>
-        <el-form-item label="oldPassword" label-width="100px">
+        <el-form-item :label="$t('UsersDetails.oldPassword')" label-width="100px">
           <el-input clearable v-model="form.old_password"></el-input>
         </el-form-item>
-        <el-form-item label="newPassword" label-width="100px">
+        <el-form-item :label="$t('UsersDetails.newPassword')" label-width="100px">
           <el-input clearable v-model="form.new_password"></el-input>
         </el-form-item>
         <!-- <el-form-item label="avatar" label-width="100px">
           <el-input clearable v-model="form.avatar"></el-input>
         </el-form-item> -->
-        <el-form-item label="accessRights" label-width="100px">
+        <el-form-item :label="$t('UsersDetails.accessRights')" label-width="100px">
           <el-checkbox-group v-model="form.access_rights">
             <el-checkbox label="admin" name="type"></el-checkbox>
             <el-checkbox label="reseller" name="type"></el-checkbox>
@@ -32,7 +32,7 @@
           </el-checkbox-group>
         </el-form-item>
 
-        <el-form-item label="status" label-width="100px">
+        <el-form-item :label="$t('UsersDetails.status')" label-width="100px">
           <el-radio-group v-model="form.status">
             <el-radio :label="1">Normal</el-radio>
             <el-radio :label="0">Ban</el-radio>
@@ -40,8 +40,8 @@
         </el-form-item>
 
         <el-form-item label-width="100px">
-          <el-button @click="Cancel">Cancel</el-button>
-          <el-button type="primary" @click="Update" @keyup.enter="Update">Update</el-button>
+          <el-button @click="Cancel">{{$t('UsersDetails.cancel')}}</el-button>
+          <el-button type="primary" @click="Update" @keyup.enter="Update">{{$t('UsersDetails.update')}}</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -87,7 +87,7 @@ export default {
           console.log(res);
           this.$message({
             type: "success",
-            message: this.form.email + "更新成功!",
+            message: this.form.email + this.$t('UsersDetailsMethods.updateSucceeded'),
           });
           this.$router.push({ path: "/Users" });
         }
@@ -98,10 +98,10 @@ export default {
     Cancel() {
       // this.$router.push({ path: "/Users" });
 
-      this.$confirm('是否在离开页面前保存修改？', '确认信息', {
+      this.$confirm(this.$t('UsersDetailsMethods.confirmL'), this.$t('UsersDetailsMethods.confirmR'), {
           distinguishCancelAndClose: true,
-          confirmButtonText: '保存',
-          cancelButtonText: '放弃修改',
+          confirmButtonText: this.$t('UsersDetailsMethods.preservation'),
+          cancelButtonText: this.$t('UsersDetailsMethods.modification'),
            closeOnClickModal: false
         })
           .then(() => {

@@ -13,13 +13,13 @@
         width="50"
         align="center"
       ></el-table-column>
-      <el-table-column prop="ctime" label="ctime" width="220" align="center">
+      <el-table-column prop="ctime" :label="$t('usersList.createTime')" width="220" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span>{{ scope.row.ctime | time }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="accessRights" align="center">
+      <el-table-column :label="$t('usersList.accessRights')" align="center">
         <template slot-scope="scope">
           <el-tag
             v-for="v in scope.row.access_rights"
@@ -41,7 +41,7 @@
       </el-table-column>
       <el-table-column
         prop="email"
-        label="email"
+        :label="$t('usersList.email')"
         align="center"
       ></el-table-column>
       <el-table-column
@@ -49,7 +49,7 @@
         label="nickname"
         align="center"
       ></el-table-column>
-      <el-table-column prop="status" label="status" align="center">
+      <el-table-column prop="status" :label="$t('usersList.status')" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.status | status }}</span>
         </template>
@@ -59,16 +59,16 @@
         label="avatar"
         align="center"
       ></el-table-column> -->
-      <el-table-column label="操作" align="center">
+      <el-table-column :label="$t('usersList.operation')" align="center">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
+            >{{$t('usersList.edit')}}</el-button
           >
           <el-button
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
+            >{{$t('usersList.delete')}}</el-button
           >
         </template>
       </el-table-column>
@@ -87,7 +87,6 @@
 
 <script>
 import { userList, getUser, deleteUser } from "@/api/users";
-import { parseTime } from "@/utils/index";
 
 export default {
   components: {},
@@ -180,15 +179,14 @@ export default {
         }
       });
     },
+
     // 删除
     handleDelete(index, row) {
       console.log(index, row);
-      this.$confirm(
-        "此操作会永久删除用户" + row.email + ", 是否继续？",
-        "提示",
+      this.$confirm(this.$t('usersMethods.confirmL') + row.email + this.$t('usersMethods.confirmR'), this.$t('usersMethods.confirmN'),
         {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+          confirmButtonText: this.$t('usersMethods.confirm'),
+          cancelButtonText: this.$t('usersMethods.cancel'),
           type: "warning"
         }
       )
@@ -197,7 +195,7 @@ export default {
             if (res.code == 1000) {
               this.$message({
                 type: "success",
-                message: row.email + "已删除成功!"
+                message: row.email + this.$t('usersMethods.successfully')
               });
             }
           });
@@ -205,7 +203,7 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除"
+            message: this.$t('usersMethods.canceled')
           });
         });
     }
