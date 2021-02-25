@@ -58,7 +58,7 @@
 				type="primary"
 				style="width: 100%; margin-bottom: 30px"
 				@click.prevent="handleLogin"
-				>Login</el-button
+				>{{ $t("loginpage.login") }}</el-button
 			>
 
 			<!-- <div class="tips">
