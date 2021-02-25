@@ -1,20 +1,30 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">Welcome ! {{ name }}</div>
+    <!-- <div class="dashboard-text">Welcome ! {{ names }}</div> -->
+    <div class="dashboard-text">Welcome ! {{ email }}</div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
+import local from "../../utils/local";
 
 export default {
-  name: 'Home',
+  data() {
+    return {
+      email: ""
+    };
+  },
+  name: "Home",
   computed: {
-    ...mapGetters([
-      'name'
-    ])
-  }
-}
+    ...mapGetters(["name"])
+  },
+  mounted() {
+    this.email = local.get("email");
+    console.log(this.email)
+  },
+  methods: {}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -72,6 +72,8 @@
 <script>
 import { validUsername } from "@/utils/validate";
 import { login } from "@/api/user";
+import local from "../../utils/local";
+
 export default {
 	name: "Login",
 	data() {
@@ -151,7 +153,10 @@ export default {
 					// });
 					this.$store
 						.dispatch("user/login", this.loginForm)
-						.then(() => {
+						.then((res) => {
+							console.log(this.loginForm.email)
+						    local.set("email", this.loginForm.email);
+
 							this.$router.push({
 								path: this.redirect || "/",
 							});

@@ -40,8 +40,8 @@
         </el-form-item>
 
         <el-form-item label-width="100px">
-          <el-button type="primary" @click="Update">Update</el-button>
-          <el-button>cancel</el-button>
+          <el-button @click="Cancel">Cancel</el-button>
+          <el-button type="primary" @click="Update" @keyup.enter="Update">Update</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -77,6 +77,7 @@ export default {
   },
 
   methods: {
+    // 更新
     Update() {
       console.log("submit!");
       console.log(this.id);
@@ -92,6 +93,25 @@ export default {
         }
       });
     },
+
+    // 取消更新
+    Cancel() {
+      // this.$router.push({ path: "/Users" });
+
+      this.$confirm('是否在离开页面前保存修改？', '确认信息', {
+          distinguishCancelAndClose: true,
+          confirmButtonText: '保存',
+          cancelButtonText: '放弃修改',
+           closeOnClickModal: false
+        })
+          .then(() => {
+            this.Update()
+          })
+          .catch(action => {
+            this.$router.push({ path: "/Users" });
+          });
+
+    }
   },
 };
 </script>
