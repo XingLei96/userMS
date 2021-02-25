@@ -1,7 +1,11 @@
 <template>
   <div class="box">
     <!-- <router-link style="display: none" :to="{path:'/user/usersDetails'}" @click="goUsersDetails">222</router-link> -->
-    <el-table :data="userDatas" style="width: 100%" max-height="250">
+    <el-table
+      highlight-current-row
+      :data="userDatas"
+      style="width: 100%; height: 96%"
+    >
       <el-table-column
         type="index"
         fixed="left"
@@ -69,6 +73,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      style="float: right"
+      @current-change="handleCurrentChange"
+      background
+      :current-page="current.page"
+      layout="total, prev, pager, next, jumper"
+      :total="current.total_count"
+    >
+    </el-pagination>
   </div>
 </template>
 
@@ -82,12 +95,19 @@ export default {
     return {
       userDatas: [],
       tagFlag: "",
+      currentPage4: 4,
+      current: {
+        total_count: 0, // 总数
+        page: 1, // 第几页
+        size: 10, // 每页多少条
+        total_page: 0 // 一共几页
+      }
     };
   },
   computed: {},
   created() {},
   filters: {
-    time: function (val) {
+    time: function(val) {
       if (val == null || val == undefined) {
         return "";
       }
@@ -108,20 +128,37 @@ export default {
       if (val == 1) {
         return "Normal";
       }
-    },
+    }
   },
   mounted() {
     this.getUsersList();
   },
   methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      if (val == 1) {
+        this.current.page = 1;
+      } else {
+        this.current.page = parseInt(val) * 1;
+      }
+      this.getUsersList();
+    },
+
     // 获取列表
     getUsersList() {
-      var data = {
-        page: 1,
-        size: 10,
-      };
-      userList(data).then((res) => {
+      var data = this.current;
+      console.log(data);
+      userList(data).then(res => {
         if (res.code == 1000) {
+          console.log(res);
+
+          this.current.total_count = res.payload.total_count;
+          this.current.page = res.payload.page;
+          this.current.size = res.payload.size;
+          this.current.total_page = res.payload.total_page;
+
           this.userDatas = res.payload.users;
           console.log(this.userDatas);
         }
@@ -132,12 +169,12 @@ export default {
     handleEdit(index, row) {
       console.log(index, row);
       console.log(row.id);
-      getUser(row.id).then((res) => {
+      getUser(row.id).then(res => {
         if (res.code == 1000) {
           console.log(res);
           var query = {
             datas: res.payload,
-            id: row.id,
+            id: row.id
           };
           this.$router.push({ path: "/UsersDetails", query: { query } });
         }
@@ -152,15 +189,15 @@ export default {
         {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          type: "warning",
+          type: "warning"
         }
       )
         .then(() => {
-          deleteUser(row.id).then((res) => {
+          deleteUser(row.id).then(res => {
             if (res.code == 1000) {
               this.$message({
                 type: "success",
-                message: row.email + "已删除成功!",
+                message: row.email + "已删除成功!"
               });
             }
           });
@@ -168,17 +205,20 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除",
+            message: "已取消删除"
           });
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
 .box {
   padding: 20px;
+  height: calc(100vh - 50px);
+  box-sizing: border-box;
+  /* background: skyblue; */
 }
 .el-icon-time {
   padding-right: 20px;
