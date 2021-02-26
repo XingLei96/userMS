@@ -175,7 +175,7 @@ export default {
             datas: res.payload,
             id: row.id
           };
-          this.$router.push({ path: "/UsersDetails", query: { query } });
+          this.$router.push({ path: "/admin/UsersDetails", query: { query } });
         }
       });
     },

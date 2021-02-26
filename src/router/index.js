@@ -32,7 +32,7 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
-    path: '/login',
+    path: '/admin/login',
     name: 'login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -47,41 +47,54 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/admin/dashboard',
     children: [{
-      path: 'dashboard',
+      path: 'admin/dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
+    },
+    {
+      path: 'admin/Users',
+      name: 'Users',
+      component: () => import('@/views/users/index'),
+      meta: { title: 'Users', icon: 'form' }
+    },
+    {
+      path: 'admin/UsersDetails',
+      name: 'UsersDetails',
+      component: () => import('@/views/users/usersDetails/index'),
+      meta: { title: 'UsersDetails', icon: 'form' },
+      hidden: true
     }]
   },
 
-  {
-    path: '/Users',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        name: 'Users',
-        component: () => import('@/views/users/index'),
-        meta: { title: 'Users', icon: 'form' }
-      }
-    ]
-  },
+  // {
+  //   path: '/Users',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'Users',
+  //       component: () => import('@/views/users/index'),
+  //       meta: { title: 'Users', icon: 'form' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/UsersDetails',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        name: 'UsersDetails',
-        component: () => import('@/views/users/usersDetails/index'),
-        meta: { title: 'UsersDetails', icon: 'form' },
-        hidden: true
-      }
-    ]
-  },
+  // {
+  //   path: '/UsersDetails',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'UsersDetails',
+  //       component: () => import('@/views/users/usersDetails/index'),
+  //       meta: { title: 'UsersDetails', icon: 'form' },
+  //       hidden: true
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

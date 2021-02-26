@@ -89,7 +89,7 @@ export default {
             type: "success",
             message: this.form.email + this.$t('UsersDetailsMethods.updateSucceeded'),
           });
-          this.$router.push({ path: "/Users" });
+          this.$router.push({ path: "/admin/Users" });
         }
       });
     },
@@ -108,7 +108,7 @@ export default {
             this.Update()
           })
           .catch(action => {
-            this.$router.push({ path: "/Users" });
+            this.$router.push({ path: "/admin/Users" });
           });
 
     }
